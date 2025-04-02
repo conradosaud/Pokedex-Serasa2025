@@ -1,4 +1,5 @@
 'use client'
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -7,9 +8,8 @@ function Dogs() {
     const [ dogs, alteraDogs ] = useState([])
 
     async function buscaTodosDogs(){
-        const response = await axios.get("https://dog.ceo/api/breeds/image/random/50")
-        console.log(response)
-        alteraDogs(response.data.message)
+        const response = await axios.get("https://dog.ceo/api/breeds/image/random/30")
+        alteraDogs( response.data.message )
     }
 
     useEffect(()=> {
@@ -24,11 +24,18 @@ function Dogs() {
 
             <hr/>
 
-            <div className="flex flex-wrap gap-5">
             {
-                dogs.map(i => <img src={i} width={150} /> )
+                dogs.length > 0 ?
+                    <div className="flex gap-5 flex-wrap" >
+                        {
+                            dogs.map( i => 
+                                <img src={i} width={100} />
+                            )
+                        }
+                    </div>
+                :
+                    <p>Carregando...</p>
             }
-            </div>
             
 
         </div>
